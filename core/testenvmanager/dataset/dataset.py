@@ -273,7 +273,7 @@ class Dataset:
             with open(data_file, "w", encoding="utf-8") as file:
                 for line in data:
                     file.writelines(line + "\n")
-        if data_format == DatasetFormat.CSV.value:
+        elif data_format == DatasetFormat.CSV.value:
             data.to_csv(data_file, index=None)
 
     @classmethod
@@ -284,7 +284,7 @@ class Dataset:
             with open(data_file, "r", encoding="utf-8") as file:
                 data = [line.strip() for line in file.readlines()]
 
-        if data_format == DatasetFormat.CSV.value:
+        elif data_format == DatasetFormat.CSV.value:
             data = pd.read_csv(data_file)
 
         return data
