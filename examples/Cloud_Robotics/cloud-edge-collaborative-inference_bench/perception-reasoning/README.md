@@ -197,7 +197,7 @@ Run Ianvs for benchmarking:
 ```bash
 cd /ianvs
 export DASHSCOPE_API_KEY="your_api_key_here"
-ianvs -f examples/Cloud_Robotics/cloud-edge-collaborative-inference-bench/perception-reasoning/benchmarkingjob.yaml
+python benchmarking.py -f examples/Cloud_Robotics/cloud-edge-collaborative-inference-bench/perception-reasoning/benchmarkingjob.yaml
 ```
 **Note**: Replace `"your_api_key_here"` with your actual Dashscope API key.
 
