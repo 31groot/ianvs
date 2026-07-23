@@ -178,11 +178,14 @@ class DeiTModelShard(ModuleShard):
                              hub_model_name)
             else:
                 hub_model_name = model_name
-        model = torch.hub.load(hub_repo, hub_model_name, pretrained=True)
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", FutureWarning)
+            model = torch.hub.load(hub_repo, hub_model_name, pretrained=True)
         state_dict = model.state_dict()
         weights = {}
         for key, val in state_dict.items():
-            weights[key] = val
+            weights[key] = val.detach().cpu().numpy()
         np.savez(model_file, **weights)
 
 
