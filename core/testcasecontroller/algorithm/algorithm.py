@@ -22,7 +22,7 @@ from core.testcasecontroller.algorithm.module import Module
 from core.testcasecontroller.algorithm.paradigm import (
     SingleTaskLearning,
     SingleTaskLearningTTA,
-    SingleTaskLearningActiveBoost,
+    SingleTaskLearningACBoost,
     IncrementalLearning,
     MultiedgeInference,
     LifelongLearning,
@@ -115,7 +115,7 @@ class Algorithm:
             return SingleTaskLearningTTA(workspace, **config)
 
         if self.paradigm_type == ParadigmType.SINGLE_TASK_LEARNING_ACTIVE_BOOST.value:
-            return SingleTaskLearningActiveBoost(workspace, **config)
+            return SingleTaskLearningACBoost(workspace, **config)
 
         if self.paradigm_type == ParadigmType.INCREMENTAL_LEARNING.value:
             return IncrementalLearning(workspace, **config)
