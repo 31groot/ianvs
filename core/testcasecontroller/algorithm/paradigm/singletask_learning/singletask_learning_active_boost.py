@@ -10,9 +10,6 @@ import json
 import os
 import os.path as osp
 from core.common.constant import ParadigmType
-from examples.yaoba.singletask_learning_boost.resource.utils.infer_and_error import infer_anno, merge_predict_results, \
-    compute_error, gen_txt_according_json, get_new_train_json
-from examples.yaoba.singletask_learning_boost.resource.utils.transform_unkonwn import aug_image_bboxes
 from .singletask_learning import SingleTaskLearning
 
 
@@ -70,6 +67,16 @@ class SingleTaskLearningACBoost(SingleTaskLearning):
                                         img_path,
                                         tmp_path,
                                         train_script_path):
+        from examples.yaoba.singletask_learning_boost.resource.utils.infer_and_error import (
+            infer_anno,
+            merge_predict_results,
+            compute_error,
+            gen_txt_according_json,
+            get_new_train_json,
+        )
+        from examples.yaoba.singletask_learning_boost.resource.utils.transform_unkonwn import (
+            aug_image_bboxes,
+        )
         r"""Generate instance weights required for unknown task training. In object detection,
             an instance means a bounding box, i.e., generating training weights for each bounding box.
         Args:

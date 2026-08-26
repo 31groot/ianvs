@@ -8,10 +8,7 @@
 # pylint: disable=R0801
 import json
 import os
-import torch
-from mmdet.apis import init_detector
 from core.common.constant import ParadigmType
-from examples.yaoba.singletask_learning_yolox_tta.resource.utils.TTA_strategy import TTA_Strategy
 from .singletask_learning import SingleTaskLearning
 
 
@@ -72,6 +69,10 @@ class SingleTaskLearningTTA(SingleTaskLearning):
         return combined_strategy
 
     def _search_tta_strategy(self, job, model_url):
+        import torch
+        from mmdet.apis import init_detector
+        from examples.yaoba.singletask_learning_yolox_tta.resource.utils.TTA_strategy import TTA_Strategy
+
         # Load validation dataset
         img_prefix = self.dataset.image_folder_url
         ann_file = self.dataset.val_url
