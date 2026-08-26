@@ -15,6 +15,6 @@ jobs:
     name: pylint
     strategy:
       matrix:
-        python-version: [ "3.7", "3.8", "3.9" ]
+        python-version: [ "3.9", "3.10", "3.11" ]
     steps:
       - run: 'echo "only docs modified, no need to trigger CI"'
