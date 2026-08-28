@@ -69,9 +69,13 @@ class SingleTaskLearningTTA(SingleTaskLearning):
         return combined_strategy
 
     def _search_tta_strategy(self, job, model_url):
+        # pylint: disable=import-outside-toplevel
         import torch
         from mmdet.apis import init_detector
-        from examples.yaoba.singletask_learning_yolox_tta.resource.utils.TTA_strategy import TTA_Strategy
+        from examples.yaoba.singletask_learning_yolox_tta.resource.utils.TTA_strategy import (
+            TTA_Strategy,
+        )
+        # pylint: enable=import-outside-toplevel
 
         # Load validation dataset
         img_prefix = self.dataset.image_folder_url

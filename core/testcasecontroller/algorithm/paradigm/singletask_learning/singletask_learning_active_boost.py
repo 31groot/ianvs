@@ -60,13 +60,34 @@ class SingleTaskLearningACBoost(SingleTaskLearning):
         img_path = self.dataset.image_folder_url
         return known_dataset_json, unknown_dataset_json, img_path
 
-    def _calculate_weights_for_training(self,
-                                        base_config,
-                                        known_json_path,
-                                        unknown_json_path,
-                                        img_path,
-                                        tmp_path,
-                                        train_script_path):
+    # pylint: disable=too-many-positional-arguments,too-many-locals
+    def _calculate_weights_for_training(
+        self,
+        base_config,
+        known_json_path,
+        unknown_json_path,
+        img_path,
+        tmp_path,
+        train_script_path,
+    ):
+        """Generate instance weights required for unknown task training.
+
+        In object detection, an instance means a bounding box, i.e., generating
+        training weights for each bounding box.
+
+        Args:
+            base_config (str): path of config file for training known/unknown model
+            known_json_path (str): path of JSON file for training known model
+            unknown_json_path (str): path of JSON file for training unknown model
+            img_path (str): image path of training, validation, and test set
+            tmp_path (str): path to save temporary files
+            train_script_path (str): path of mmdet training script
+
+        Returns:
+            tuple: paths to the generated training-weight JSON and augmented images.
+        """
+
+        # pylint: disable=import-outside-toplevel
         from examples.yaoba.singletask_learning_boost.resource.utils.infer_and_error import (
             infer_anno,
             merge_predict_results,
@@ -77,20 +98,8 @@ class SingleTaskLearningACBoost(SingleTaskLearning):
         from examples.yaoba.singletask_learning_boost.resource.utils.transform_unkonwn import (
             aug_image_bboxes,
         )
-        r"""Generate instance weights required for unknown task training. In object detection,
-            an instance means a bounding box, i.e., generating training weights for each bounding box.
-        Args:
-            base_config (str): path of config file for training known/unknown model
-            known_json_path (str): path of JSON file for training known model
-            unknown_json_path (str): path of JSON file for training unknown model
-            img_path (str): image path of training, validation, and test set.
-            tmp_path (str): path to save temporary files, including augmented images, training JSON files, etc.
-            train_script_path (str): path of mmdet training script
-        Return:
-            new_training_weight (str): JSON file with instance weights for unknown task training,
-                which contains both the known and unknown training sets.
-            aug_img_folder (str): the image paths required for training the model using the JSON file with instance weights.
-        """
+        # pylint: enable=import-outside-toplevel
+
         if not os.path.exists(tmp_path):
             os.mkdir(tmp_path)
         # Define necessary path
